@@ -101,14 +101,164 @@
 
 ### Практическая работа. Знакомство с Yandex Cloud CLI
 
-* Для начала работы с Yandex Cloud CLI необходимо зарегистрироваться в ней. 
+* Для начала работы с Yandex Cloud CLI необходимо зарегистрироваться в ней и создать профиль. Для начала выполним команду [*yc init*], после чего выполним регистрацию аккаунта (полная документация по регистрации находится по ссылке -> https://cloud.yandex.ru/docs/cli/quickstart)
+
+    ![twenty seven](img/pic27_yc_init.png)
+
+* Далее проверим, что мы успешно зарегистрировались, воспользовавшись командой [*yc config lsit*], которая должна показать параметры нашего профиля
+
+    ![twenty six](img/pic26_yc_config_list.png)
+
+* Теперь создадим ВМ **demo-1** при ппомощи Yandex Command Line
+
+    ![twenty eight](img/pic28_create_demo1.png)
+
+* И сразу повторим аналогичные шаги для машины **demo-2**
+
+    ![twenty nine](img/pic29_create_demo2.png)
+
+* Наконец, проверим работоспособность созданных машин, открыв в браузере страницу с их местоположением
+
+    ![thirty](img/pic30_test_demo1.png)
+    ![thirty one](img/pic31_test_demo2.png)
+
+### Практическая работа. Создание балансировщика
+
+* Для создания балансировщика перейдем в раздел *__Network Load Balancer__* -> *__Целевые группы__* -> *__Создать__*, после чего создадим **целевую группу**, куда поместим машины **demo-1** и **demo-2**
+
+    ![thirty two](img/pic32__create_target_group.png)
+
+* После чего добавим ***обработчик*** и поставим его на **80-й** порт, попутно настроив проверку состояния, как сказано в курсе
+
+    ![thirty three](img/pic33_add_worker.png)
+    ![thiry four](img/pic34_check_status.png)
+
+* Тперь удостоверимся, что правильно выполнили все действия и проверим состояние целевой группы, в которой должны отображаться добавленные машины
+
+    ![thirty five](img/pic35_check_demo_status.png)
+
+* Теперь откроем адрес балансировщика - мы должны попасть на менее нагруженную машину (в моем случае это **demo-1**, но в вашем случае это спокойно может быть **demo-2**)
+    
+    ![thirty six](img/pic36_cehck_demo.png)
+
+* Если состояние машины корректно отображается, попробуем отключить ту машину, чью страницу мы видим
+
+    ![thirty seven](img/pic37_check_demo.png)
+
+* Как мы видим, абсолютно по тому же адресу балансировщика открывается страница машины **demo-2**, что говорит о полной работоспособности нашего балансировщика
+
+### Практическая работа. Создание группы виртуальных машин
+
+* Для начала создадим **группу виртуальных машин**. Для этого перейдем в раздел **Compute Cloud** -> **Группы виртуальных машин** -> **Создать группу**
+
+    ![thirty nine](img/pic39_cloud.png)
+
+* Далее создадим новый аккаунт и присвоим ему права "**editor**"
+
+    ![forty](img/pic40_account.png)
+
+* Теперь создадим **Шаблон** ВМ
+
+    ![forty one](img/pic41_shablon.png)
+    ![forty two](img/pic42_shablon.png)
+    ![forty three](img/pic43_shablon.png)
+
+* Завершим создание **Группы виртуальных машин** и проверим их статус
+
+    ![forty four](img/pic44_check_status.png)
+
+* Как мы видим, при создании группы автоматически создались 2 машины, которые отображаются в активных машинах группы на графике слева. Теперь попробуем отключить одну из машин и проверим статус группы
+
+    ![forty five](img/pic45_check_status.png)
+
+* Статус группы изменился, что говорит о благополучной работе группы. Теперь создадим еще одну групу, но в этот раз **максимальный размер** группы уеличим с ***2-х*** машин да ***4-х***
+
+    ![forty six](img/pic46_shablon.png)
+
+* Проверим статус группы и заметим, что он изменился от того, который был раньше
+    ![forty seven](img/pic47_group.png)
+
+### Практическая работа. Автоматическое масштабирование под нагрузкой
+
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
 
 
-
-
-## Глава 02. Начало работы в облаке
-## Глава 03. Начало работы в облаке
-## Глава 04. Начало работы в облаке
-## Глава 05. Начало работы в облаке
-## Глава 06. Начало работы в облаке
+## Глава 02. Хранение и анализ данных
+## Глава 03. DevOps и автоматизация
+## Глава 04. Serverless
+## Глава 05. Безопасность
+## Глава 06. Прогнозирование затрат и оптимизация
 
