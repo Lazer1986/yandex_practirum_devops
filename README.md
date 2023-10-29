@@ -1,7 +1,9 @@
 # Отчет по практической части курса "Инженер облачных сервисов"
 Данный отчет представляет собой документацию процесса выполнения практических задач из курса. Блоки с теорией не заносятся в документацию
 
+
 ## Глава 01. Начало работы в облаке
+
 
 ### Создание виртуальной машины и подеключение к ней
 * Для начала создадим нашу первую виртуальную машину (далее ВМ) через конструктор виртуальных машин. Для этого нажмем кнопку "Создать ВМ" на странице консоли Yandex Cloud, после чего в открывшемся окне повторим действия из курса. Советую поставить галочку напротив "Дополнительно: Прерываемая", поскольку в этом слуучае машина будет жрать меньше ресурсов, которые у нас и так ограничены, а на ее работоспособности это никак не скажется
@@ -178,85 +180,135 @@
 * Проверим статус группы и заметим, что он изменился от того, который был раньше
     ![forty seven](img/pic47_group.png)
 
-### Практическая работа. Автоматическое масштабирование под нагрузкой
+### Практическая работа. Воссоздание виртуальных машин в группе
 
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
+* Для начала установим утилиту, которая позволит протестировать работоспособность наших машин в стрессовых ситуациях, а также удостоверимся, что машины в данный момент ничем не нагруженны
+
+    ![forty eight](img/pic48_monitoring.png)
+    ![forty nine](img/pic49_install_stress.png)
+
+* Теперь запустим утилиту и проверим нагрузку машин
+
+    ![fifty](img/pic50_install_stress.png)
+    ![fifty one](img/pic51_stress.png)
+
+* При загрузке текущих машин группа должна автоматически создать новые машины и распределить нагрузку между ними. Проверим статус группы
+
+    ![fifty two](img/pic52_new_machine.png)
+    ![fifty three](img/pic53_stress.png)
+
+* На этом закончим с первой главой курса и перейдем ко второй
 
 
 ## Глава 02. Хранение и анализ данных
+
+
+### Практическая работа. Создание бакетов и загрузка объектов
+
+* Чтобы создать бакет, необходимо перейти в раздел **Object Storage** -> **Бакеты** -> **Новый бакет**. Назвоем бакет именем *klinika-bicket*
+
+    ![fifty four](img/pic54_create_bucket.png)
+
+* Теперь вручную загрузим снимок пациента и удостоверимся, что он доступен в бакете
+
+    ![fifty five](img/pic55_upload_image.png)
+    ![fifty six](img/pic56_image_uploated.png)
+
+* После попробуем добавить другой снимок пациента через терминал машины. Для этого установим утилиту **s3cmd**, после чего воспользуемся командой **--configure**, чтобы задать настройки утилите. Также проверим, удалось ли подлючиться к нашему бакет командой **s3cmd ls**
+
+    ![fifty seven](img/pic57_register_network.png)
+    ![fifty eight](img/pic58_check_status.png)
+
+* Теперь передадим снимок пациента командой **s3cmd put**, в аргументах которой укажем путь до снимка, а также путь до бакета в объектном хранилище
+
+    ![fifty nine](img/pic59_success.png)
+
+* Теперь создадим жизненный цикл бакета, чтобы своевременно очищать хранилище. Для этого перейдем в раздел **Object Storage** -> **Бакеты** -> **klinika-bucket** и перейдем во вкладку **Жизненный цикл** 
+
+    ![sixty](img/pic60_settings.png)
+
+* Теперь изменим метаданные снимков командой **s3cmd modify** и проверим измененные метаданные снимков
+
+    ![sixty one](img/pic61_bucket_status.png)
+    ![sixty three](img/pic63_rename_header.png)
+
+### Практическая работа. Создание кластера базы данных MySQL
+
+* Для создания кластера перейдем в раздел **Managed Services for MySQL** -> **Кластеры** -> **Создать** и заполним поля в соответствии с инструкцией 
+
+    ![sixty five](img/pic65_create_cluster.png)
+    ![sixty six](img/pic66.png)
+    ![sixty seven](img/pic67.png)
+    ![sixty eight](img/pic68.png)
+    ![sixty nine](img/pic69.png)
+    ![seventy](img/pic70.png)
+
+* Теперь проверим, правильно ли мы создали кластеры. Для этого проверим статус кластера
+
+    ![seventy one](img/pic71_scheck_status.png)
+
+* После этого попробуем подключиться к БД через Yandex Cloud из вкладки **SQL**. При успешном подключении к базе данных у нас откроется консоль SQL
+
+    ![seventy two](img/pic72_connection.png)
+    ![seventy three](img/pic73_sql.png)
+
+* Напишем запрос-вставку к терминал и проверим, успешно ли прошел запрос, открыв сущность **ratings** базы данных **db1**
+
+    ![seventy four](img/pic74_check_status.png)
+    
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+![twenty four](img)
+
+
+
 ## Глава 03. DevOps и автоматизация
 ## Глава 04. Serverless
 ## Глава 05. Безопасность
