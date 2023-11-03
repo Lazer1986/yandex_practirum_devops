@@ -8,22 +8,22 @@
 ### Создание виртуальной машины и подеключение к ней
 * Для начала создадим нашу первую виртуальную машину (далее ВМ) через конструктор виртуальных машин. Для этого нажмем кнопку "Создать ВМ" на странице консоли Yandex Cloud, после чего в открывшемся окне повторим действия из курса. Советую поставить галочку напротив "Дополнительно: Прерываемая", поскольку в этом слуучае машина будет жрать меньше ресурсов, которые у нас и так ограничены, а на ее работоспособности это никак не скажется
 
-    ![frst](img/pic1_vm_creation.png)
-    ![second](img/pic2_vm_creation.png)
+    ![frst](img/part01/pic1_vm_creation.png)
+    ![second](img/part01/pic2_vm_creation.png)
 
 * В разделе "Доступ" необходимо указать логин администратора (далее мы часто будем взаимодействовать с ним), а ниже - ssh ключ от нашего родного терминала. Чтобы сгенерировать новый ключ, необходимо воспользоваться командой ["ssh-keygen -t ed25519"] (данный ключ представляет собой укороченную запись обычного ключа)
 
-    ![third](img/pic3_ssh_key_generation.png)
+    ![third](img/part01/pic3_ssh_key_generation.png)
 
 * При создании ключа оставьте все диалоговые окна пустыми (просто жмите клавишу Enter, пока они не перестанут появляться). Поздравляю!! Вы создали свой первый shh ключ (вернее, сразу 2, поскольку одновременно создается приватный и публичный ключ, о чем расскажу далее), который сохранен в папку [*.shh/*]. Теперь необходимо прочитать содержимое ключа при помощи утилиты [*cat*] (если у вас нет данной утилиты, воспользуйтесь командой [*sudo apt-get install cat*]). Для этого укажем полный путь до файла [*cat ~/.ssh/id_ed25519.pub*]. Теперь перенесем наш ключ в поле добавления пользователя, чтобы получить возможность соединяться с машиной через протокол ssh
 
 * Теперь давайте попробуем подключиться к машине, указав ее публичный IP, который можно найти напротив названия машины в консоле ВМ. Для этого пропишем следующую команду: [*ssh <логин>@<публичный IP машины>*]
 
-    ![forth](img/pic4_ssh_connect.png)
+    ![forth](img/part01/pic4_ssh_connect.png)
 
 * Также уберем пароль у администратора, чтобы не вводить его при каждом действии (это очень-очень плохая практика, но в учебных целях можно). Для этого воспользуемся командой [*passwd <логин>*]
 
-    ![fiveth](img/pic5_passwd.png)
+    ![fiveth](img/part01/pic5_passwd.png)
 
 * Теперь самостоятельно пропишите команды [*sudo apt-get update*] и [*sudo apt-get upgrade*], чтобы установить более новые версии уже установленных утилит
 
@@ -31,24 +31,24 @@
 
 * Для подключения к серийной консоли воспользуемся следующей командой: [*ssh -t -p 9600 -o IdentitiesOnly=yes -i ~/.ssh/<имя закрытого ключа> <ID виртуальной машины>.<имя пользователя>@serialssh.cloud.yandex.net*]
 
-    ![sixth](img/pic6_service_connect.png)
+    ![sixth](img/part01/pic6_service_connect.png)
 
 ### Создаем ВМ с 5% vCPU и учимся использовать мониторинг
 
 * Для начала создадим ВМ с требуемыми параметрмаи
 
-    ![seven](img/pic7_monitoring_create.png)
-    ![eight](img/pic8_monitoring_create.png)
-    ![nine](img/pic9_monitoring_create.png)
+    ![seven](img/part01/pic7_monitoring_create.png)
+    ![eight](img/part01/pic8_monitoring_create.png)
+    ![nine](img/part01/pic9_monitoring_create.png)
 
 * Теперь нагрузим машину, чтобы удостовериться, что логирование идет как надо. Для этого подключимся к машине через shh и создадим пару файлов
 
 
-    ![ten](img/pic10_connect_monitoring.png)
+    ![ten](img/part01/pic10_connect_monitoring.png)
 
 * Теперь првоерим, как поживают логи
 
-    ![eleven](img/pic11_check_monitoring.png)
+    ![eleven](img/part01/pic11_check_monitoring.png)
 
 * Как можно заметить, графики отличаются от того, что было в начале. Если вам интересны конкретные цифры по загруженности машины в определенный момент времени, просто наведите курсор на граф
 
@@ -58,20 +58,20 @@
 
 * Для начала перейдем на страницу сервиса Virtual Private Cloud и нажмем на кнопку *Создать сеть*. Далее создадим сеть с говорящим названием
 
-    ![thirteen](img/pic13.png)
+    ![thirteen](img/part01/pic13.png)
 
 * В результате будут созданы 3 подсети: *my-network-ru-central1-a*, *my-network-ru-central1-b*, *my-network-ru-central1-c*. Теперь создадим еще одну подсеть с маской /28 по заданнмы правилам
 
-    ![forteen](img/pic14_create_network.png)
+    ![forteen](img/part01/pic14_create_network.png)
 
 * Теперь создадим ВМ, которая будет выполнять роль веб-сервера по заданным правилам. Удостоверьтесь, что в блоке *Сетевые настройки* в параметре *Подсеть* выбрали подсеть, которую мы создавали ранее
 
-    ![fiveteen](img/pic15_web_server.png)
-    ![sixteen](img/pic16_web_server.png)
+    ![fiveteen](img/part01/pic15_web_server.png)
+    ![sixteen](img/part01/pic16_web_server.png)
 
 * Теперь проверим, что машина правильно настроена и попробуем достучаться до нее через *ping*
 
-    ![seventeen](img/pic17_ping_local_global.png)
+    ![seventeen](img/part01/pic17_ping_local_global.png)
 
 * Поздравляю!! Если пинг проходит, вы верно настроили машину и правильно выполнили все предшествующие этапы. Если что-то пошло не так - повторите действия заново
 
@@ -79,25 +79,25 @@
 
 * Чтобы создать группу безопасности, перейдите по ссылке https://console.cloud.yandex.ru/link/vpc/security-groups, после чего нажмите на кнопку *Создать группу*. Нажмите на кнопку, после чего придумайте говорящее название для своей группы. В моем случае она называется *my-network-security*. Далее в блоке *Правила* укажем несколько правил для нашей группы для входящего и исходящего трафика:
 
-    ![eighteen](img/pic18_firewall.png)
-    ![nineteen](img/pic19_firewall.png)
-    ![twenty](img/pic20_firewall.png)
-    ![twenty one](img/pic21_firewall.png)
+    ![eighteen](img/part01/pic18_firewall.png)
+    ![nineteen](img/part01/pic19_firewall.png)
+    ![twenty](img/part01/pic20_firewall.png)
+    ![twenty one](img/part01/pic21_firewall.png)
 
 * Теперь проверим наши группы, где должна отобрадаться недавно созданная группа *my-network-security* с 5 правилами
 
-    ![twenty two](img/pic22_networks.png)
+    ![twenty two](img/part01/pic22_networks.png)
 
 * Далее создадим сервер, расположенный в нашей новой сети
 
-    ![twenty three](img/pic23_server.png) 
+    ![twenty three](img/part01/pic23_server.png) 
 
 * Теперь установим на сервер *nginx* командой [*sudo apt-get install nginx*]
-    ![twenty four](img/pic24_install_nginx.png)
+    ![twenty four](img/part01/pic24_install_nginx.png)
 
 * Перейдем в браузере по публичному адресу сервера и проверим, что *nginx* работает
 
-    ![twenty five](img/pic25_test_nginx.png)
+    ![twenty five](img/part01/pic25_test_nginx.png)
 
 * Поздравляю с завершением настройки группы безопасности и установки *nginx*
 
@@ -105,47 +105,47 @@
 
 * Для начала работы с Yandex Cloud CLI необходимо зарегистрироваться в ней и создать профиль. Для начала выполним команду [*yc init*], после чего выполним регистрацию аккаунта (полная документация по регистрации находится по ссылке -> https://cloud.yandex.ru/docs/cli/quickstart)
 
-    ![twenty seven](img/pic27_yc_init.png)
+    ![twenty seven](img/part01/pic27_yc_init.png)
 
 * Далее проверим, что мы успешно зарегистрировались, воспользовавшись командой [*yc config lsit*], которая должна показать параметры нашего профиля
 
-    ![twenty six](img/pic26_yc_config_list.png)
+    ![twenty six](img/part01/pic26_yc_config_list.png)
 
 * Теперь создадим ВМ **demo-1** при ппомощи Yandex Command Line
 
-    ![twenty eight](img/pic28_create_demo1.png)
+    ![twenty eight](img/part01/pic28_create_demo1.png)
 
 * И сразу повторим аналогичные шаги для машины **demo-2**
 
-    ![twenty nine](img/pic29_create_demo2.png)
+    ![twenty nine](img/part01/pic29_create_demo2.png)
 
 * Наконец, проверим работоспособность созданных машин, открыв в браузере страницу с их местоположением
 
-    ![thirty](img/pic30_test_demo1.png)
-    ![thirty one](img/pic31_test_demo2.png)
+    ![thirty](img/part01/pic30_test_demo1.png)
+    ![thirty one](img/part01/pic31_test_demo2.png)
 
 ### Практическая работа. Создание балансировщика
 
 * Для создания балансировщика перейдем в раздел *__Network Load Balancer__* -> *__Целевые группы__* -> *__Создать__*, после чего создадим **целевую группу**, куда поместим машины **demo-1** и **demo-2**
 
-    ![thirty two](img/pic32__create_target_group.png)
+    ![thirty two](img/part01/pic32__create_target_group.png)
 
 * После чего добавим ***обработчик*** и поставим его на **80-й** порт, попутно настроив проверку состояния, как сказано в курсе
 
-    ![thirty three](img/pic33_add_worker.png)
-    ![thiry four](img/pic34_check_status.png)
+    ![thirty three](img/part01/pic33_add_worker.png)
+    ![thiry four](img/part01/pic34_check_status.png)
 
 * Тперь удостоверимся, что правильно выполнили все действия и проверим состояние целевой группы, в которой должны отображаться добавленные машины
 
-    ![thirty five](img/pic35_check_demo_status.png)
+    ![thirty five](img/part01/pic35_check_demo_status.png)
 
 * Теперь откроем адрес балансировщика - мы должны попасть на менее нагруженную машину (в моем случае это **demo-1**, но в вашем случае это спокойно может быть **demo-2**)
     
-    ![thirty six](img/pic36_cehck_demo.png)
+    ![thirty six](img/part01/pic36_cehck_demo.png)
 
 * Если состояние машины корректно отображается, попробуем отключить ту машину, чью страницу мы видим
 
-    ![thirty seven](img/pic37_check_demo.png)
+    ![thirty seven](img/part01/pic37_check_demo.png)
 
 * Как мы видим, абсолютно по тому же адресу балансировщика открывается страница машины **demo-2**, что говорит о полной работоспособности нашего балансировщика
 
@@ -153,49 +153,49 @@
 
 * Для начала создадим **группу виртуальных машин**. Для этого перейдем в раздел **Compute Cloud** -> **Группы виртуальных машин** -> **Создать группу**
 
-    ![thirty nine](img/pic39_cloud.png)
+    ![thirty nine](img/part01/pic39_cloud.png)
 
 * Далее создадим новый аккаунт и присвоим ему права "**editor**"
 
-    ![forty](img/pic40_account.png)
+    ![forty](img/part01/pic40_account.png)
 
 * Теперь создадим **Шаблон** ВМ
 
-    ![forty one](img/pic41_shablon.png)
-    ![forty two](img/pic42_shablon.png)
-    ![forty three](img/pic43_shablon.png)
+    ![forty one](img/part01/pic41_shablon.png)
+    ![forty two](img/part01/pic42_shablon.png)
+    ![forty three](img/part01/pic43_shablon.png)
 
 * Завершим создание **Группы виртуальных машин** и проверим их статус
 
-    ![forty four](img/pic44_check_status.png)
+    ![forty four](img/part01/pic44_check_status.png)
 
 * Как мы видим, при создании группы автоматически создались 2 машины, которые отображаются в активных машинах группы на графике слева. Теперь попробуем отключить одну из машин и проверим статус группы
 
-    ![forty five](img/pic45_check_status.png)
+    ![forty five](img/part01/pic45_check_status.png)
 
 * Статус группы изменился, что говорит о благополучной работе группы. Теперь создадим еще одну групу, но в этот раз **максимальный размер** группы уеличим с ***2-х*** машин да ***4-х***
 
-    ![forty six](img/pic46_shablon.png)
+    ![forty six](img/part01/pic46_shablon.png)
 
 * Проверим статус группы и заметим, что он изменился от того, который был раньше
-    ![forty seven](img/pic47_group.png)
+    ![forty seven](img/part01/pic47_group.png)
 
 ### Практическая работа. Воссоздание виртуальных машин в группе
 
 * Для начала установим утилиту, которая позволит протестировать работоспособность наших машин в стрессовых ситуациях, а также удостоверимся, что машины в данный момент ничем не нагруженны
 
-    ![forty eight](img/pic48_monitoring.png)
-    ![forty nine](img/pic49_install_stress.png)
+    ![forty eight](img/part01/pic48_monitoring.png)
+    ![forty nine](img/part01/pic49_install_stress.png)
 
 * Теперь запустим утилиту и проверим нагрузку машин
 
-    ![fifty](img/pic50_install_stress.png)
-    ![fifty one](img/pic51_stress.png)
+    ![fifty](img/part01/pic50_install_stress.png)
+    ![fifty one](img/part01/pic51_stress.png)
 
 * При загрузке текущих машин группа должна автоматически создать новые машины и распределить нагрузку между ними. Проверим статус группы
 
-    ![fifty two](img/pic52_new_machine.png)
-    ![fifty three](img/pic53_stress.png)
+    ![fifty two](img/part01/pic52_new_machine.png)
+    ![fifty three](img/part01/pic53_stress.png)
 
 * На этом закончим с первой главой курса и перейдем ко второй
 
@@ -207,60 +207,71 @@
 
 * Чтобы создать бакет, необходимо перейти в раздел **Object Storage** -> **Бакеты** -> **Новый бакет**. Назвоем бакет именем *klinika-bicket*
 
-    ![fifty four](img/pic54_create_bucket.png)
+    ![fifty four](img/part02/pic54_create_bucket.png)
 
 * Теперь вручную загрузим снимок пациента и удостоверимся, что он доступен в бакете
 
-    ![fifty five](img/pic55_upload_image.png)
-    ![fifty six](img/pic56_image_uploated.png)
+    ![fifty five](img/part02/pic55_upload_image.png)
+    ![fifty six](img/part02/pic56_image_uploated.png)
 
 * После попробуем добавить другой снимок пациента через терминал машины. Для этого установим утилиту **s3cmd**, после чего воспользуемся командой **--configure**, чтобы задать настройки утилите. Также проверим, удалось ли подлючиться к нашему бакет командой **s3cmd ls**
 
-    ![fifty seven](img/pic57_register_network.png)
-    ![fifty eight](img/pic58_check_status.png)
+    ![fifty seven](img/part02/pic57_register_network.png)
+    ![fifty eight](img/part02/pic58_check_status.png)
 
 * Теперь передадим снимок пациента командой **s3cmd put**, в аргументах которой укажем путь до снимка, а также путь до бакета в объектном хранилище
 
-    ![fifty nine](img/pic59_success.png)
+    ![fifty nine](img/part02/pic59_success.png)
 
 * Теперь создадим жизненный цикл бакета, чтобы своевременно очищать хранилище. Для этого перейдем в раздел **Object Storage** -> **Бакеты** -> **klinika-bucket** и перейдем во вкладку **Жизненный цикл** 
 
-    ![sixty](img/pic60_settings.png)
+    ![sixty](img/part02/pic60_settings.png)
 
 * Теперь изменим метаданные снимков командой **s3cmd modify** и проверим измененные метаданные снимков
 
-    ![sixty one](img/pic61_bucket_status.png)
-    ![sixty three](img/pic63_rename_header.png)
+    ![sixty one](img/part02/pic61_bucket_status.png)
+    ![sixty three](img/part02/pic63_rename_header.png)
 
-### Практическая работа. Создание кластера базы данных MySQL
+### Практическая работа. Создание кластера базы данных MySQL && Подключение к базе данных
 
 * Для создания кластера перейдем в раздел **Managed Services for MySQL** -> **Кластеры** -> **Создать** и заполним поля в соответствии с инструкцией 
 
-    ![sixty five](img/pic65_create_cluster.png)
-    ![sixty six](img/pic66.png)
-    ![sixty seven](img/pic67.png)
-    ![sixty eight](img/pic68.png)
-    ![sixty nine](img/pic69.png)
-    ![seventy](img/pic70.png)
+    ![sixty five](img/part02/pic65_create_cluster.png)
+    ![sixty six](img/part02/pic66.png)
+    ![sixty seven](img/part02/pic67.png)
+    ![sixty eight](img/part02/pic68.png)
+    ![sixty nine](img/part02/pic69.png)
+    ![seventy](img/part02/pic70.png)
 
 * Теперь проверим, правильно ли мы создали кластеры. Для этого проверим статус кластера
 
-    ![seventy one](img/pic71_scheck_status.png)
+    ![seventy one](img/part02/pic71_scheck_status.png)
 
 * После этого попробуем подключиться к БД через Yandex Cloud из вкладки **SQL**. При успешном подключении к базе данных у нас откроется консоль SQL
 
-    ![seventy two](img/pic72_connection.png)
-    ![seventy three](img/pic73_sql.png)
+    ![seventy two](img/part02/pic72_connection.png)
+    ![seventy three](img/part02/pic73_sql.png)
 
 * Напишем запрос-вставку к терминал и проверим, успешно ли прошел запрос, открыв сущность **ratings** базы данных **db1**
 
-    ![seventy four](img/pic74_check_status.png)
-    
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
+    ![seventy four](img/part02/pic74_check_status.png)
+
+* Далее попробуем произвести запрос из локальной машины. Для этого создадим текстовый файл с запросом, затем подключимся к клстеру, использую команду из курса
+
+    ![seventy five](img/part02/pic75_create_query.png)
+    ![seventy seven](img/part02/pic77_instruction.png)
+    ![seventy six](img/part02/pic76_success.png)
+
+ * Теперь удостоверимся, что успешно подключились и можем работать с БД. Для этого выведем версию базы данных запросом *__SELECT version();__*
+
+    ![seventy eight](img/part02/pic78_success_connection.png)
+
+* Далее воспроизведем запрос с созданием сущности **users**
+
+    ![seventy nine](img/part02/pic79_create_user.png)
+
+### Практическая работа. Создание кластера базы данных 
+
 ![twenty four](img)
 ![twenty four](img)
 ![twenty four](img)
