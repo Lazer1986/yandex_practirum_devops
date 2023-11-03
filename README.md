@@ -270,57 +270,124 @@
 
     ![seventy nine](img/part02/pic79_create_user.png)
 
-### Практическая работа. Создание кластера базы данных 
+### Практическая работа. Создание кластера базы данных PostgreSQL
 
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
-![twenty four](img)
+* Работа с кластером **PostgreSQL** практически ничем не отличается от работы с кластером **MySQL**, поэтому я приведу только пример осздания кластера. Дальнейшие шаги создания кластера ничем не отличаются от шагов по созданию кластера MySQL 
 
+    ![eighty](img/part02/pic80_create_postgresql.png)
+    ![eighty one](img/part02/pic81.png)
+
+### Практическая работа. Создание кластера MongoDB
+
+* Для начала создадим кластер с такими же параметрами, как указано в интсрукции
+
+    ![twenty four](img/part02/pic24_21.png)
+
+* Далее создадим "аккаунт" и проверим наличие командой строки mongosh командой **mongosh --version**. В случае верного выполнения всех действий вы увидите текущую версию mongosh, как показано на скрине 
+
+    ![twenty four](img/part02/pic24_22.png)
+    ![twenty four](img/part02/pic24_23.png)
+
+* Теперь подключимся к серверу **MongoDB** используя команду, которая приведена в интсрукции
+
+    ![twenty four](img/part02/pic24_24.png)
+
+* Теперь, когда мы подключились к серверу, попробуем выполнить запрос на создание коллекции **users**, после чего заполним ее приведенными данными. При успешном выполнении запроса вы увидите данные о созданном объекте
+
+    ![twenty four](img/part02/pic24_25.png)
+
+* Теперь произведем вставку данных в коллекцию
+
+    ![twenty four](img/part02/pic24_26.png)
+
+* И, наконец, проверим наличие добавленной записи в коллекции
+
+    ![twenty four](img/part02/pic24_27.png)
+
+### Практическая работа. Создание кластера ClickHouse и подключение к нему
+
+* По уже существующей традиции создадим кластер **ClickHouse**, выбрав указанные параметры
+
+    ![twenty four](img/part02/pic25_21.png)
+    ![twenty four](img/part02/pic25_22.png)
+
+* Далее установим среду **Dbeaver** (https://dbeaver.io/download/), откроем среду и создадим новое подключение к базе данных
+
+    ![twenty four](img/part02/pic25_23.png)
+
+* В поле *Host* укажем FQDN хоста, который можно получить на странице Managed Service for **ClickHouse** -> **Кластеры** -> **clickhouse-cluster** -> **Хосты**, в поле порт укажем 8443 порт. Также в поле аутентификации укажите имя пользователя и пароль от него, которые задавали при создании кластера
+
+    ![twenty four](img/part02/pic25_24.png)
+
+* Также во вкладке **Driver properties** установим значения *ssl = true* и *sslmode = strict*
+
+    ![twenty four](img/part02/pic25_25.png)
+
+* Если вы сделали все шаги правильно, вы увидете новое подключение к базе данных
+
+    ![twenty four](img/part02/pic25_26.png)
+
+### Практическая работа. Создание кластера Hadoop
+
+* Для начала создадим кластер **Hadoop** через утилиту **Data Proc**. При создании кластера выберем те же поля, которые укзааны в интсрукции
+
+    ![twenty four](img/part02/pic27_31.png)
+    ![twenty four](img/part02/pic27_32.png)
+    ![twenty four](img/part02/pic27_34.png)
+    ![twenty four](img/part02/pic27_35.png)
+
+* Также создадим отдельный бакет, где будут храниться зависимости заданий и результаты их выполнения
+
+    ![twenty four](img/part02/pic27_33.png)
+
+* При создании кластера, вероятно, как и у меня, у вас не будет подсети и разрешенмым NAT соединением, поэтому давайте создадим новую подсеть.
+
+* Для начала перейдем по вкладке **Virtual Private Cloud** -> **Шлюзы** и создадим новый шлюз. Я выбрал название *nat-thing*. Далее перейдем в параметры шлюза и в поле *Тип* выберем вариант **NAT в интернет**
+
+    ![twenty four](img/part02/pic27_38.png)
+    ![twenty four](img/part02/pic27_37.png)
+
+* Теперь перейдем во вкладку **Virtual Private Cloud** -> **Таблицы маршрутизации** и создадим новую таблицу маршрутизации. Для таблицы я выбрал имя *nat-table*. Теперь добавим ей маршрут, в котором укажем шлюз *nat-thing*
+
+    ![twenty four](img/part02/pic27_39.png)
+
+* Теперь перейдем по вкладке **Virtual Private Cloud** -> **Подсети** и в подсеть *default-ru-central-a* добавим таблицу маршрутизации *nath-table*
+
+    ![twenty four](img/part02/pic27_310.png)
+
+* Поздравляю!! Теперь вернемся к созданию кластера и обнаружим, что для редактирования контейнеров запрашиваются права пользователя *dataproc.provisioner* и *monitoring.viewer*, выдать которые у меня не получилось. Надеюсь, вы сильнее меня и смогли выдать права
+
+    ![twenty four](img/part02/pic27_36.png)
 
 
 ## Глава 03. DevOps и автоматизация
+
+* Чтобы увидеть список ВМ, воспользуемся командой **yc compute instance list**
+
+    ![twenty four](img/part03/pic31_21.png)
+
+* Теперь создадим папку в **resource-manager**. Для папки я выбрал имя *cringe-folder*
+
+    ![twenty four](img/part03/pic31_2n.png)
+
+* Теперь поменяем описание нашей папки. При успешном изменении вы увидите метаданные вашей папки
+
+    ![twenty four](img/part03/pic31_22.png)
+
+* Теперь выведем список виртуальных машин, которые могут взаимодействовать с папкой 
+
+    ![twenty four](img/part03/pic31_23.png)
+
+* Теперь создадим новый профиль командой *yc config profile create <profile_name>*. Я выбрал имя профиля *cringe-profile*
+
+    ![twenty four](img/part03/pic31_24.png)
+
+* Теперь переключимся на дефолтный профиль
+
+    ![twenty four](img/part03/pic31_25.png)
+
+### Практическая работа. Начало работы в CLI
+
 ## Глава 04. Serverless
 ## Глава 05. Безопасность
 ## Глава 06. Прогнозирование затрат и оптимизация
